@@ -1,2 +1,2 @@
 # SwiftEdge-Processor
-A Chat GPT made processor. What did you expect I don't know C++.
+A Chat GPT made processor. What did you expect.
