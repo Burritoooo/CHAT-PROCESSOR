@@ -9,4 +9,4 @@ This is the C++ Version.
 
 ---
 
-# [Js](https://github.com/Burritoooo/CHAT-PROCESSOR/tree/JS-Version) **|** [Py](https://github.com/Burritoooo/CHAT-PROCESSOR/tree/Python-Version) **|** [C#](https://github.com/Burritoooo/CHAT-PROCESSOR/tree/C%23-Version)
+# [Js](https://github.com/Burritoooo/CHAT-PROCESSOR/tree/JS-Version) **/|/** [Py](https://github.com/Burritoooo/CHAT-PROCESSOR/tree/Python-Version) **\|\** [C#](https://github.com/Burritoooo/CHAT-PROCESSOR/tree/C%23-Version)
