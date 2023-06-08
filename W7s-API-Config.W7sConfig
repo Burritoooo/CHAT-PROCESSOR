@@ -2,6 +2,7 @@
 @Session.Start(Charge:Bool:True)
 @Core.Services
 *API.service(Function.run(Init))%
+*API.service(Functiom.run(PingTst))%
 *API.service(Function.run(Build))%
 *API.service(Function.run(Start))%
 @Main
