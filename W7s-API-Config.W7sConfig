@@ -1,0 +1,20 @@
+@Start:Service(API)%
+@Session.Start(Charge:Bool:True)
+@Core.Services
+*API.service(Function.run(Init))%
+*API.service(Function.run(Build))%
+*API.service(Function.run(Start))%
+@Main
+*API.Import(Crypto|SStore|CMonitor|RTEnviorment|FConvert|W7s-OS.Services)%
+*API.Import(Path(https://CORE.west7014studios.com/API/Services/Testing/Beta/Restricted/V7))%
+@Run
+*API.Compute(Default:W7sPRO)%
+*API.Membership([PRO])%
+*API.Membership(Verify(./Verification|Key(0726506483658495647465234)))%
+$TBA - Add custom actions to config files.
+*API.Loop(Bool:True)%
+@End
+@Stop{API.Loop !-= Bool:False | =- Bool:True}-Not{Error.Report([Invaild Value On Line(Line.Error.Bool.Check)])}%
+@Kill
+@Clean
+@Session.End
