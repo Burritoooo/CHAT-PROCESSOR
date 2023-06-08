@@ -1,4 +1,4 @@
-# CyberStream X1 Processor
+# CHAT PROCESSOR
 A Chat GPT made processor. What did you expect.
 --
 This is the C# Version.
