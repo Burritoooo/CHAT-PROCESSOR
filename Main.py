@@ -1,93 +1,90 @@
 import os
 
-# SwiftCode Terminal
+memory = [0] * 1024
+registers = [0] * 8
+file_extension = "SC"
 
-# Global variable to store the program code
-program_code = ""
+def help():
+    print("Welcome to the CyberStream X1 Terminal!")
+    print("Available commands:")
+    print("help - Show basic help information")
+    print("advanced help - Show detailed help for all commands")
+    print("clear - Clear the terminal screen")
+    print("view - View the contents of memory and registers")
+    print("save - Save the contents of memory and registers to a file")
+    print("load - Load the contents of memory and registers from a file")
+    # Add more commands here
 
-# Function to execute SwiftCode commands
-def execute_command(command):
-    global program_code
-    
-    if command == "help":
-        print("Welcome to the SwiftCode terminal!")
-        print("Available commands:")
-        print("help - Show this help message")
-        print("advanced help - Show advanced help information")
-        print("add <num1> <num2> - Add two numbers")
-        print("subtract <num1> <num2> - Subtract num2 from num1")
-        print("run <filename> - Execute the SwiftCode program from a file")
-        print("memory - View the current memory state")
-        print("save <filename> - Save the current program to a file")
-        print("load <filename> - Load and edit a program from a file")
-        print("clear - Clear the terminal screen")
-    elif command == "advanced help":
-        print("Advanced help information:")
-        print("Functions:")
-        print("1. add(num1, num2): Adds two numbers and returns the sum.")
-        print("2. subtract(num1, num2): Subtracts num2 from num1 and returns the difference.")
-    elif command.startswith("add"):
-        numbers = command.split(" ")[1:]
-        if len(numbers) == 2:
-            result = add(float(numbers[0]), float(numbers[1]))
-            print(f"The sum is: {result}")
-        else:
-            print("Invalid number of arguments for 'add' command.")
-    elif command.startswith("subtract"):
-        numbers = command.split(" ")[1:]
-        if len(numbers) == 2:
-            result = subtract(float(numbers[0]), float(numbers[1]))
-            print(f"The difference is: {result}")
-        else:
-            print("Invalid number of arguments for 'subtract' command.")
-    elif command.startswith("run"):
-        filename = command.split(" ")[1]
-        run_program(filename)
-    elif command == "memory":
-        view_memory()
-    elif command.startswith("save"):
-        _, filename, *path_parts = command.split(" ")[1:]
-        path = os.path.join(*path_parts)
-        save_program(filename, path)
-    elif command.startswith("load"):
-        _, filename, *path_parts = command.split(" ")[1:]
-        path = os.path.join(*path_parts)
-        load_program(filename, path)
-    elif command == "clear":
-        clear_terminal()
-    elif command.isdigit():
-        line_number = int(command)
-        program_code += f"{line_number}: {command}\n"
-    else:
-        print("Unknown command. Type 'help' to see available commands.")
+def advanced_help():
+    print("Detailed help for all commands:")
+    print("help - This command shows basic help information")
+    print("advanced help - This command shows detailed help for all commands")
+    print("clear - This command clears the terminal screen")
+    print("view - This command displays the contents of memory and registers")
+    print("save - This command saves the contents of memory and registers to a file")
+    print("load - This command loads the contents of memory and registers from a file")
+    # Add more commands here
 
-# Function to add two numbers
-def add(num1, num2):
-    return num1 + num2
+def clear():
+    os.system('cls')  # Use 'clear' instead if you're on Unix-like systems
 
-# Function to subtract one number from another
-def subtract(num1, num2):
-    return num1 - num2
-# Function to load and edit a program from a file
-def load_program(filename, path=""):
-    global program_code
-    
-    if path:
-        filename = os.path.join(path, filename)
-    
-    filename_with_extension = f"{filename}.swc"  # Custom file extension
-    try:
-        with open(filename_with_extension, "r") as file:
-            program_code = file.read()
-            print(f"Loading program from file: {filename_with_extension}")
-    except FileNotFoundError:
-        print(f"File '{filename_with_extension}' not found.")
+def view():
+    print("Memory Contents:")
+    for i, value in enumerate(memory):
+        print(f"Address {i}: {value}")
+    print("\nRegister Contents:")
+    for i, value in enumerate(registers):
+        print(f"Register {i}: {value}")
 
-# Function to clear the terminal screen
-def clear_terminal():
-    os.system('cls' if os.name == 'nt' else 'clear')
+def save():
+    filename = input("Enter the filename to save to: ")
+    filename += f".{file_extension}"
+    with open(filename, 'w') as file:
+        file.write("Memory\n")
+        for value in memory:
+            file.write(str(value) + "\n")
+        file.write("Registers\n")
+        for value in registers:
+            file.write(str(value) + "\n")
+    print("Save complete.")
 
-# Main terminal loop
+def load():
+    filename = input("Enter the filename to load from: ")
+    if not filename.endswith(f".{file_extension}"):
+        print(f"Invalid file extension. File must have '.{file_extension}' extension.")
+        return
+    if not os.path.isfile(filename):
+        print(f"File '{filename}' does not exist.")
+        return
+    with open(filename, 'r') as file:
+        section = None
+        for line in file:
+            line = line.strip()
+            if line == "Memory":
+                section = "memory"
+            elif line == "Registers":
+                section = "registers"
+            elif section == "memory":
+                memory.append(int(line))
+            elif section == "registers":
+                registers.append(int(line))
+    print("Load complete.")
+
+# Main program loop
 while True:
-    user_input = input("SwiftCode> ")  # Prompt for user input
-    execute_command(user_input)
+    command = input("Enter a command: ").lower()
+
+    if command == "help":
+        help()
+    elif command == "advanced help":
+        advanced_help()
+    elif command == "clear":
+        clear()
+    elif command == "view":
+        view()
+    elif command == "save":
+        save()
+    elif command == "load":
+        load()
+    else:
+        print("Invalid command. Type 'help' for a list of available commands.")
