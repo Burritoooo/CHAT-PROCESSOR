@@ -1,4 +1,4 @@
 # CHAT PROCESSOR
 A Chat GPT made processor. What did you expect.
 --
-This is the C# Version.
+This is the Js Version.
