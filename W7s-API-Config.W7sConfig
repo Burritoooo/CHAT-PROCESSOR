@@ -13,8 +13,8 @@
 *API.Membership(Verify(./Verification|Key(0726506483658495647465234)))%
 $TBA - Add custom actions to config files.
 *API.Loop(Bool:True)%
-@End
+@Session.End
 @Stop{API.Loop !-= Bool:False | =- Bool:True}-Not{Error.Report([Invaild Value On Line(Line.Error.Bool.Check)])}%
 @Kill
 @Clean
-@Session.End
+@End
